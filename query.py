@@ -32,5 +32,11 @@ apts = html.find_all('p', attrs={'class': 'row'})
 
 this_apt = apts[15]
 size = this_apt.findAll(attrs={'class': 'housing'})[0].text
+
 this_size, n_brs = find_size_and_brs(size)
-print this_size, n_brs
+this_time = this_apt.find('time')['datetime']
+this_time = pd.to_datetime(this_time)
+this_price = float(this_apt.find('span', {'class': 'price'}).text.strip('$'))
+this_title = this_apt.find('a', attrs={'class': 'hdrlnk'}).text
+
+print '\n'.join([str(i) for i in [this_size, n_brs, this_time, this_price, this_title]])
